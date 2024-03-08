@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Contacts</title>
+    <style>
+        span.validationError {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1>Spring Boot Contacts</h1>
+
+<h2>Add Contact</h2>
+<form  method="POST" th:action="@{/}" th:object="${contact}">
+
+    <div th:if="${#fields.hasErrors()}">
+        <span class="validationError">
+        Please correct the problems below and resubmit.
+        </span>
+    </div>
+
+    <label for="firstName">First Name: </label>
+    <input type="text" th:field="*{firstName}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('firstName')}"
+          th:errors="*{firstName}">First Name Error</span>
+
+    <br/>
+
+    <label for="lastName">Last Name: </label>
+    <input type="text" th:field="*{lastName}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}">Last Name Error</span>
+
+    <br/>
+
+    <label for="phone">Phone ###: </label>
+    <input type="text" th:field="*{phoneNumber}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('phoneNumber')}"
+          th:errors="*{phoneNumber}">Phone Error</span>
+
+    <br/>
+
+    <label for="email">Email ###: </label>
+    <input type="text" th:field="*{emailAddress}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('emailAddress')}"
+          th:errors="*{emailAddress}">Email Error</span>
+
+    <br/>
+    <input type="submit" value="Submit">
+</form>
+
+<h2>Contacts</h2>
+<ul th:each="contact : ${contacts}">
+    <li>
+        <text th:text="${contact.firstName}"></text> --
+        <text th:text="${contact.lastName}"></text> --
+        <text th:text="${contact.phoneNumber}"></text> --
+        <text th:text="${contact.emailAddress}"></text>
+    </li>
+</ul>
+</body>
+</html>
